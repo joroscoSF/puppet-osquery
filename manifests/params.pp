@@ -19,11 +19,12 @@ class osquery::params {
     },
   }
 
-  $package_name   = 'osquery'
-  $service_name   = 'osqueryd'
-  $package_ver    = 'latest' # or present
-  $service_enable = true
-  $repo_install   = true
+  $package_name                = 'osquery'
+  $service_name                = 'osqueryd'
+  $package_ver                 = 'latest' # or present
+  $service_enable              = true
+  $repo_install                = true
+  $apt_transport_https_install = true
 
   case $::kernel {
     'Windows': {

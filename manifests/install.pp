@@ -25,14 +25,18 @@ class osquery::install {
               ensure  => $::osquery::package_ver,
             }
 
-            package { 'apt-transport-https':
-              ensure => present,
-              notify => Class['apt::update'],
+            if $::osquery::apt_transport_https_install {
+              package { 'apt-transport-https':
+                ensure => present,
+                notify => Class['apt::update'],
+              }
+              # explicitly set ordering for installation of package, repo and package
+              Package['apt-transport-https'] -> Apt::Source['osquery_repo'] -> Package[$::osquery::package_name]
+            } else {
+              Apt::Source['osquery_repo'] -> Package[$::osquery::package_name]
             }
-
-            # explicitly set ordering for installation of package, repo and package
-            Package['apt-transport-https'] -> Apt::Source['osquery_repo'] -> Package[$::osquery::package_name]
           }
+
           'RedHat': {
             # add the osquery yum repo package
             package { $::osquery::repo_name:

@@ -22,6 +22,9 @@
 # [*repo_install*]
 #   Whether or not to install the osquery yum/apt repository. Default is true.
 #
+# [*apt_transport_https_install*]
+#   Whether or not to install apt_transport_https on Debian (Ubuntu). Default is true.
+#
 # === Variables
 #
 # See osquery::params for defaults
@@ -57,12 +60,13 @@
 #
 class osquery (
 
-  String $package_name    = $::osquery::params::package_name,
-  String $service_name    = $::osquery::params::service_name,
-  String $package_ver     = $::osquery::params::package_ver,
-  Boolean $service_enable = $::osquery::params::service_enable,
-  Hash $settings          = $::osquery::params::settings,
-  Boolean $repo_install   = $::osquery::params::repo_install,
+  String $package_name                 = $::osquery::params::package_name,
+  String $service_name                 = $::osquery::params::service_name,
+  String $package_ver                  = $::osquery::params::package_ver,
+  Boolean $service_enable              = $::osquery::params::service_enable,
+  Hash $settings                       = $::osquery::params::settings,
+  Boolean $repo_install                = $::osquery::params::repo_install,
+  Boolean $apt_transport_https_install = $::osquery::params::apt_transport_https_install,
 
 ) inherits ::osquery::params {
 
